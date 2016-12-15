@@ -25,7 +25,7 @@
 # Set cross_section.xml directory path.
 EXTRA_ARGS=$@
 CROSS_SECTION_XML_PATH=/home/ecmartin3/software/mcnpdata/
-FRENSIE=/home/lkersting/frensie
+FRENSIE=/home/lkersting/frensie_linlin
 
 INPUT="1"
 if [ "$#" -eq 1 ];
@@ -69,7 +69,7 @@ GEOM="geom.xml"
 SOURCE="source.xml"
 RSP="../rsp_fn.xml"
 EST="../est.xml"
-NAME="al_${NAME}"
+NAME="al_${NAME}_LinLin"
 
 # Make directory for the test results
 TODAY=$(date +%Y-%m-%d)
