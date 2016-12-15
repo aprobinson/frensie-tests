@@ -11,7 +11,7 @@
 # Set cross_section.xml directory path.
 EXTRA_ARGS=$@
 CROSS_SECTION_XML_PATH=/home/ecmartin3/software/mcnpdata/
-FRENSIE=/home/lkersting/frensie
+FRENSIE=/home/lkersting/frensie_linlin
 
 INPUT="1"
 if [ "$#" -eq 1 ];
@@ -31,7 +31,7 @@ MAT="${NAME}mat.xml"
 RSP="${NAME}rsp_fn.xml"
 EST="${NAME}est_${ENERGY}.xml"
 SOURCE="${NAME}source_${ENERGY}.xml"
-NAME="${NAME}${ENERGY}"
+NAME="${NAME}${ENERGY}_LinLin"
 
 # Make directory for the test results
 TODAY=$(date +%Y-%m-%d)
