@@ -69,7 +69,7 @@ GEOM="geom.xml"
 SOURCE="source.xml"
 RSP="../rsp_fn.xml"
 EST="../est.xml"
-NAME="al_${NAME}_LinLin"
+NAME="al_10000_${NAME}_LinLin"
 
 # Make directory for the test results
 TODAY=$(date +%Y-%m-%d)
@@ -78,12 +78,12 @@ mkdir -p $DIR
 
 THREADS="100"
 echo "Running Facemc with ${THREADS} threads:"
-mpiexec -n ${THREADS} ${FRENSIE}/bin/facemc --sim_info=${INFO} --geom_def=${GEOM} --mat_def=${MAT} --resp_def=$RSP --est_def=$EST --src_def=$SOURCE --cross_sec_dir=$CROSS_SECTION_XML_PATH --simulation_name=$NAME --threads=${THREADS} > ${DIR}/${NAME}.txt 2>&1
+mpiexec -n ${THREADS} ${FRENSIE}/bin/facemc --sim_info=${INFO} --geom_def=${GEOM} --mat_def=${MAT} --resp_def=$RSP --est_def=$EST --src_def=$SOURCE --cross_sec_dir=$CROSS_SECTION_XML_PATH --simulation_name=$NAME > ${DIR}/${NAME}.txt 2>&1
 
 echo "Moving the results:"
 
 # Move file to the test results folder
-H5=${NAME}.h5
+H5="${NAME}.h5"
 NEW_NAME="${DIR}/${H5}"
 NEW_RUN_INFO="${DIR}/continue_run_${NAME}.xml"
 
