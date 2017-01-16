@@ -34,30 +34,36 @@ then
     INPUT="$1"
 fi
 
+# Changing variables
+THREADS="100"
+ELEMENT="Al"
+ENERGY="0.005"
+
+
+ENERGY_EV=$(echo $ENERGY*1000000 |bc)
+ENERGY_EV=${ENERGY_EV%.*}
 NAME="ace"
-MAT="mat_ace.xml"
-INFO="sim_info.xml"
 
 if [ ${INPUT} -eq 1 ]
 then
     # Use ACE data
     NAME="ace"
-    MAT="mat_ace.xml"
-    INFO="sim_info.xml"
+    python mat.py -n ${ELEMENT} -t ${NAME}
+    python sim_info.py -e ${ENERGY} -c 1.0
     echo "Using ACE data!"
 elif [ ${INPUT} -eq 2 ]
 then
     # Use Native analog data
-    NAME="native"
-    MAT="mat_native.xml"
-    INFO="sim_info.xml"
+    NAME="linlin"
+    python mat.py -n ${ELEMENT} -t ${NAME}
+    python sim_info.py -e ${ENERGY} -c 1.0
     echo "Using Native analog data!"
 elif [ ${INPUT} -eq 3 ]
 then
     # Use Native Moment Preserving data
-    NAME="moments"
-    MAT="mat_native.xml"
-    INFO="sim_info_moments.xml"
+    NAME="linlin_moments"
+    python mat.py -n ${ELEMENT} -t "linlin"
+    python sim_info.py -e ${ENERGY} -c 0.9
     echo "Using Native Moment Preserving data!"
 else
     # Default to ACE data
@@ -65,11 +71,15 @@ else
 fi
 
 # .xml file paths.
+python ../est.py -e ${ENERGY}
+python source.py -e ${ENERGY}
+MAT="mat.xml"
+INFO="sim_info.xml"
 GEOM="geom.xml"
 SOURCE="source.xml"
 RSP="../rsp_fn.xml"
 EST="../est.xml"
-NAME="al_10000_${NAME}_LinLin"
+NAME="al_${NAME}_${ENERGY_EV}"
 
 # Make directory for the test results
 TODAY=$(date +%Y-%m-%d)
