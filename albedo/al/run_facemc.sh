@@ -27,7 +27,7 @@ fi
 
 # Changing variables
 ENERGY=".015"
-THREADS="80"
+THREADS="12"
 ELEMENT="Al"
 # Number of histories 1e7
 HISTORIES="10"

@@ -35,11 +35,11 @@ then
 fi
 
 # Changing variables
-ENERGY=".015"
-THREADS="80"
+ENERGY=".0001"
+THREADS="10"
 ELEMENT="Al"
 # Number of histories 1e7
-HISTORIES="10000000"
+HISTORIES="10"
 
 
 ENERGY_EV=$(echo $ENERGY*1000000 |bc)
@@ -98,11 +98,6 @@ echo "Running Facemc with ${THREADS} threads:"
 RUN="mpiexec -n ${THREADS} ${FRENSIE}/bin/facemc-mpi --sim_info=${INFO} --geom_def=${GEOM} --mat_def=${MAT} --resp_def=${RSP} --est_def=${EST} --src_def=${SOURCE} --cross_sec_dir=${CROSS_SECTION_XML_PATH} --simulation_name=${NAME}"
 echo ${RUN}
 ${RUN} > ${DIR}/${NAME}.txt 2>&1
-
-echo "Running Facemc with ${THREADS} threads:"
-echo ${RUN}
-${RUN} > ${DIR}/${NAME}.txt 2>&1
-echo "Moving the results:"
 
 # Move file to the test results folder
 H5=${NAME}.h5
