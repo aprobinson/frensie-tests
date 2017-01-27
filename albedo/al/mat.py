@@ -1,6 +1,8 @@
 #! /usr/bin/env python
 import argparse as ap
-import lxml.etree as ET
+import xml.etree.ElementTree as ET
+from ElementTree_pretty import prettify
+
 
 # Set up the argument parser
 description = "This script allows one to write the mat.xml file for FACEMC. "\
@@ -39,5 +41,9 @@ ET.SubElement(parameter_1, "Parameter", name="Fractions", type="Array", value="{
 
 ET.SubElement(parameter_1, "Parameter", name="Isotopes", type="Array(string)", value=filename)
 
-tree = ET.ElementTree(root)
-tree.write("mat.xml", pretty_print=True)
+if file_type == "ace":
+  prettify(root,"mat_ace.xml")
+elif file_type == "native":
+  prettify(root,"mat.xml")
+elif file_type == "linlin":
+  prettify(root,"mat_lin.xml")
