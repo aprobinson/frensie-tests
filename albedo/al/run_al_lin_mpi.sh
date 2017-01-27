@@ -35,11 +35,11 @@ then
 fi
 
 # Changing variables
-ENERGY=".0001"
-THREADS="10"
+ENERGY=".01"
+THREADS="80"
 ELEMENT="Al"
 # Number of histories 1e7
-HISTORIES="10"
+HISTORIES="10000000"
 
 
 ENERGY_EV=$(echo $ENERGY*1000000 |bc)
