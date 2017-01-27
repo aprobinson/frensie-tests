@@ -9,9 +9,6 @@ description = "This script allows one to write the sim_info.xml file for FACEMC.
 
 parser = ap.ArgumentParser(description=description)
 
-energy_msg = "the source energy (in MeV)"
-parser.add_argument('-e', help=energy_msg, required=True)
-
 history_msg = "the number of histories as an int (ie: 1000 not 1e-4)"
 parser.add_argument('-n', help=history_msg, required=True)
 
@@ -20,7 +17,7 @@ parser.add_argument('-c', help=cutoff_msg, required=True)
 
 # Parse the user's arguments
 user_args = parser.parse_args()
-energy = user_args.e
+energy = 15.7
 number_of_histories = user_args.n
 cutoff_cosine = user_args.c
 
