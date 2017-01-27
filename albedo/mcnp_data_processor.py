@@ -6,17 +6,17 @@ import sys, getopt
 from subprocess import call
 
 def main(argv):
-    base = ''
+    base = 'mcnp'
     try:
-        opts, args = getopt.getopt(argv,"hf:",["file="])
+        opts, args = getopt.getopt(argv,"hf:",["filename="])
     except getopt.GetoptError:
-        print 'data_processor.py -f <file name>'
+        print 'data_processor.py -f <filename>'
         sys.exit(1)
     for opt, arg in opts:
         if opt == '-h':
-            print 'data_processor.py -f <file name>'
+            print 'data_processor.py -f <filename>'
             sys.exit(1)
-        elif opt in ("-f", "--file"):
+        elif opt in ("-f", "--filename"):
             base = arg
 
     cell_list = ['10']
