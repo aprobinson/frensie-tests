@@ -20,6 +20,7 @@ user_args = parser.parse_args()
 energy = 15.7
 number_of_histories = user_args.n
 cutoff_cosine = user_args.c
+name = "sim_info_"+str(cutoff_cosine)+".xml"
 
 root = ET.Element("ParameterList", name="Simulation Info")
 
@@ -40,4 +41,4 @@ ET.SubElement(parameter_2, "Parameter", name="Elastic Cutoff Angle Cosine", type
 
 ET.SubElement(parameter_2, "Parameter", name="Electron Atomic Relaxation", type="bool", value="true" )
 
-prettify(root,"sim_info.xml")
+prettify(root,name)

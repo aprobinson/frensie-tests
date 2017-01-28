@@ -54,7 +54,8 @@ then
     NAME="ace"
     python sim_info.py -n ${HISTORIES} -c 1.0
     python mat.py -n ${ELEMENT} -t ${NAME}
-    MAT="mat_ace.xml"
+    INFO="sim_info_1.0.xml"
+    MAT="mat_${ELEMENT}_${NAME}.xml"
     echo "Using ACE data!"
 elif [ ${INPUT} -eq 2 ]
 then
@@ -62,7 +63,8 @@ then
     NAME="native"
     python sim_info.py -n ${HISTORIES} -c 1.0
     python mat.py -n ${ELEMENT} -t "linlin"
-    MAT="mat.xml"
+    INFO="sim_info_1.0.xml"
+    MAT="mat_${ELEMENT}_linlin.xml"
     echo "Using Native analog data!"
 elif [ ${INPUT} -eq 3 ]
 then
@@ -70,25 +72,22 @@ then
     NAME="moments"
     python sim_info.py -n ${HISTORIES} -c 0.9
     python mat.py -n ${ELEMENT} -t "linlin"
-    MAT="mat.xml"
+    INFO="sim_info_0.9.xml"
+    MAT="mat_${ELEMENT}_linlin.xml"
     echo "Using Native Moment Preserving data!"
 else
     # Default to ACE data
     python sim_info.py -n ${HISTORIES} -c 1.0
     python mat.py -n ${ELEMENT} -t ${NAME}
-    MAT="mat_ace.xml"
+    INFO="sim_info_1.0.xml"
+    MAT="mat_${ELEMENT}_${NAME}.xml"
     echo "Input not valid, ACE data will be used!"
 fi
 
 # .xml file paths.
-python geom.py -t DagMC
-python est.py
-python source.py
 EST="est.xml"
 SOURCE="source.xml"
-INFO="sim_info.xml"
 GEOM="geom.xml"
-SOURCE="source.xml"
 RSP="../rsp_fn.xml"
 NAME="hanson_lin_${NAME}"
 
@@ -102,8 +101,10 @@ RUN="mpiexec -n ${THREADS} ${FRENSIE}/bin/facemc-mpi --sim_info=${INFO} --geom_d
 echo ${RUN}
 ${RUN} > ${DIR}/${NAME}.txt 2>&1
 
-echo "Moving the results:"
+echo "Removing old xml files:"
+rm ${INFO} ${MAT} ElementTree_pretty.pyc
 
+echo "Moving the results:"
 # Move file to the test results folder
 H5=${NAME}.h5
 NEW_NAME="${DIR}/${H5}"
