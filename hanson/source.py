@@ -6,6 +6,8 @@ from ElementTree_pretty import prettify
 # Set up the argument parser
 description = "This script allows one to write the source.xml file for FACEMC."
 
+name = "source.xml"
+
 root = ET.Element("ParameterList", name="Source")
 
 parameters = ET.SubElement(root, "ParameterList", name="Basic Distributed Source")
@@ -22,4 +24,4 @@ ET.SubElement(parameters, "Parameter", name="Energy Distribution", type="Delta D
 sub_list_2 = ET.SubElement(parameters, "ParameterList", name="Directional Distribution")
 ET.SubElement(sub_list_2, "Parameter", name="Direction", type="Array(double)", value="{1.0,0.0,0.0}")
 
-prettify(root,"source.xml")
+prettify(root,name)

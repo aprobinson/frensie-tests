@@ -24,8 +24,8 @@
 
 # Set cross_section.xml directory path.
 EXTRA_ARGS=$@
-CROSS_SECTION_XML_PATH=/home/software/mcnpdata/
-FRENSIE=/home/lkersting/research/frensie-repos/lkersting/
+CROSS_SECTION_XML_PATH=/home/ecmartin3/software/mcnpdata/
+FRENSIE=/home/lkersting/frensie_linlin
 
 INPUT="1"
 if [ "$#" -eq 1 ];
@@ -35,8 +35,8 @@ then
 fi
 
 # Changing variables
-ENERGY=".01"
-THREADS="10"
+ENERGY=".06"
+THREADS="80"
 ELEMENT="Al"
 # Number of histories 1e7
 HISTORIES="10"
