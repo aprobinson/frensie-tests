@@ -51,6 +51,7 @@ IONIZATION_ON="true"
 EXCITATION_ON="true"
 
 REACTIONS=" -e ${ELASTIC_ON} -b ${BREM_ON} -i ${IONIZATION_ON} -a ${EXCITATION_ON}"
+SIM_PARAMETERS="-n ${HISTORIES} ${REACTIONS}"
 ENERGY="15.7"
 NAME="ace"
 
@@ -58,7 +59,8 @@ if [ ${INPUT} -eq 1 ]
 then
     # Use ACE data
     NAME="ace"
-    python sim_info.py -n ${HISTORIES} -c 1.0 ${REACTIONS}
+    SIM_PARAMETERS="${SIM_PARAMETERS} -c 1.0"
+    python sim_info.py ${SIM_PARAMETERS}
     python mat.py -n ${ELEMENT} -t ${NAME}
     INFO="sim_info_1.0"
     MAT="mat_${ELEMENT}_${NAME}.xml"
@@ -67,7 +69,8 @@ elif [ ${INPUT} -eq 2 ]
 then
     # Use Native analog data
     NAME="native"
-    python sim_info.py -n ${HISTORIES} -c 1.0 ${REACTIONS}
+    SIM_PARAMETERS="${SIM_PARAMETERS} -c 1.0"
+    python sim_info.py ${SIM_PARAMETERS}
     python mat.py -n ${ELEMENT} -t "linlin"
     INFO="sim_info_1.0"
     MAT="mat_${ELEMENT}_linlin.xml"
@@ -76,50 +79,53 @@ elif [ ${INPUT} -eq 3 ]
 then
     # Use Native Moment Preserving data
     NAME="moments"
-    python sim_info.py -n ${HISTORIES} -c 0.9 ${REACTIONS}
+    SIM_PARAMETERS="${SIM_PARAMETERS} -c 0.9"
+    python sim_info.py ${SIM_PARAMETERS}
     python mat.py -n ${ELEMENT} -t "linlin"
     INFO="sim_info_0.9"
     MAT="mat_${ELEMENT}_linlin.xml"
     echo "Using Native Moment Preserving data!"
 else
     # Default to ACE data
-    python sim_info.py -n ${HISTORIES} -c 1.0 ${REACTIONS}
+    NAME="ace"
+    SIM_PARAMETERS="${SIM_PARAMETERS} -c 1.0"
+    python sim_info.py ${SIM_PARAMETERS}
     python mat.py -n ${ELEMENT} -t ${NAME}
     INFO="sim_info_1.0"
     MAT="mat_${ELEMENT}_${NAME}.xml"
     echo "Input not valid, ACE data will be used!"
 fi
 
+NAME_EXTENTION=""
 # Set the sim info xml file name
 if [ "${ELASTIC_ON}" = "false" ]
 then
-    INFO="${INFO}_no_elastic"
+    NAME_EXTENTION="_no_elastic"
 fi
 if [ "${BREM_ON}" = "false" ]
 then
-    INFO="${INFO}_no_brem"
+    NAME_EXTENTION="${NAME_EXTENTION}_no_brem"
 fi
 if [ "${IONIZATION_ON}" = "false" ]
 then
-    INFO="${INFO}_no_ionization"
+    NAME_EXTENTION="${NAME_EXTENTION}_no_ionization"
 fi
 if [ "${EXCITATION_ON}" = "false" ]
 then
-    INFO="${INFO}_no_excitation"
+    NAME_EXTENTION="${NAME_EXTENTION}_no_excitation"
 fi
-
-INFO="${INFO}.xml"
+INFO="${INFO}${NAME_EXTENTION}.xml"
 
 # .xml file paths.
 EST="est.xml"
 SOURCE="source.xml"
 GEOM="geom.xml"
 RSP="../rsp_fn.xml"
-NAME="hanson_lin_${NAME}"
+NAME="hanson_lin_${NAME}${NAME_EXTENTION}"
 
 # Make directory for the test results
 TODAY=$(date +%Y-%m-%d)
-DIR="results/${TODAY}"
+DIR="results/linlin/${TODAY}"
 mkdir -p $DIR
 
 echo "Running Facemc Hanson (lin) test with ${HISTORIES} particles on ${THREADS} threads:"

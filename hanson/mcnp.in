@@ -6,11 +6,11 @@ c Cell block-------------------------------------------------------------------c
 c -----------------------------------------------------------------------------c
 c
 c Cell 10 is the volume of aluminum that is doing the shielding
-10  1  -19.32  100 -101 102 -103 104 -105    IMP:e=1   IMP:p=1
+10  1  -19.32  100 -101 102 -103 104 -105    IMP:e=1
 c Cell 20 is a void
-20  0  200 -201 202 -203 204 -205 #10       IMP:e=1   IMP:p=1
+20  0  200 -201 202 -203 204 -205 #10       IMP:e=1
 c Cell 30 is the graveyard 
-30  0  #20 #10                              IMP:e=0   IMP:p=0
+30  0  #20 #10                              IMP:e=0
 c
 c
 c ----------------------------------------------------------------------------c
@@ -21,7 +21,11 @@ c ----------------------------------------------------------------------------c
 c Surface block---------------------------------------------------------------c
 c ----------------------------------------------------------------------------c
 c
+<<<<<<< HEAD
 c the 100 series define a hold foil 0.0009658 cm thick
+=======
+c the 100 series define a gold foil 0.0009658 cm thick
+>>>>>>> 3dad22a8e60128d4f4433978748ee46d369e8ef5
 c
 100 PX -0.0
 101 PX 0.0009658
@@ -90,7 +94,7 @@ E4 1.5e-5 99ilog 15.7
 c
 dbcn 17j 2 $ Turn on analog mode
 c
-CUT:P J 1.0e-03 $ Set photon cutoff to 1 keV
+CUT:P J 1e-3 $ Set photon cutoff to 1e-3 MeV
 CUT:E J 1.5e-05 $ Set electron cutoff to 15 eV
 c
 c Max energy, p's make e's, e's make p's, brem dist, skip 10, analog start energy
